@@ -35,7 +35,7 @@ function checkLetter(letter) {
   const letters = document.querySelectorAll('.letter');
   for (i = 0; i <= letters.length; i += 1) {
     if (letters[i].innerHTML === letter.innerHTML) {
-      letters[i].className = 'show';
+      letters[i].classList.add('show');
       const match = letters[i];
       return match;
     } else {
