@@ -22,9 +22,9 @@ function addPhraseToDisplay(arr){
     li.textContent = arr[i];
     ul.appendChild(li);
     if (arr[i] != ' ') {
-      li.className = 'letter';
+      li.classList.add('letter');
     } else {
-      li.className = 'space';
+      li.classList.add('space');
     }
   }
 }
@@ -47,7 +47,7 @@ function checkLetter(letter) {
 qwerty.addEventListener('click', (e) => {
   const clickedLetter = event.target;
   if (clickedLetter.tagName === 'BUTTON') {
-    clickedLetter.className = 'chosen';
+    clickedLetter.classList.add('chosen');
     clickedLetter.disabled = true;
     const letterFound = checkLetter(clickedLetter);
   }
