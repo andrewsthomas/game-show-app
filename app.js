@@ -3,7 +3,7 @@ const startButton = document.querySelector('.btn__reset');
 const phrase = document.getElementById('phrase');
 const qwerty = document.getElementById('qwerty');
 const ul = document.querySelector('#phrase ul');
-const phrases = ['Hit the books', 'Go cold turkey', 'Rule of thumb', 'Raining cats and dogs', 'Cut to the chase'];
+const phrases = ['hit the books', 'go cold turkey', 'rule of thumb', 'raining cats and dogs', 'cut to the chase'];
 const phraseArray = getRandomPhraseArray(phrases);
 const missed = 0;
 
@@ -34,7 +34,7 @@ addPhraseToDisplay(phraseArray);
 function checkLetter(letter) {
   const letters = document.querySelectorAll('.letter');
   for (i = 0; i <= letters.length; i += 1) {
-    if (letters[i] === letter ) {
+    if (letters[i].innerHTML === letter.innerHTML) {
       letters[i].className = 'show';
       const match = letters[i];
       return match;
