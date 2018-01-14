@@ -33,19 +33,20 @@ addPhraseToDisplay(phraseArray);
 
 function checkLetter(letter) {
   const letters = document.querySelectorAll('.letter');
-  for (i = 0; i <= letters.length; i += 1) {
+  for (i = 0; i < letters.length; i += 1) {
     if (letters[i].innerHTML === letter.innerHTML) {
       letters[i].classList.add('show');
-      const match = letters[i];
-      return match;
-    } else {
-      return null;
+      // const match = letters[i];
+      // return match;
     }
+    // else {
+    //   return null;
+    // }
   }
 }
 
 qwerty.addEventListener('click', (e) => {
-  const clickedLetter = event.target;
+  const clickedLetter = e.target;
   if (clickedLetter.tagName === 'BUTTON') {
     clickedLetter.classList.add('chosen');
     clickedLetter.disabled = true;
