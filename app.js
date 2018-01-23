@@ -11,13 +11,15 @@ startButton.addEventListener('click', (e) => {
   overlay.style.display = 'none';
 });
 
-function getRandomPhraseArray(arr){
+// Randomly chooses a phrase from the 'phrases' array
+function getRandomPhraseArray(arr) {
   const randomPhrase = Math.floor(Math.random() * arr.length);
   return arr[randomPhrase].split('');
 }
 
-function addPhraseToDisplay(arr){
-  for (i = 0; i <= arr.length; i += 1) {
+// Adds the selected phrase to the display
+function addPhraseToDisplay(arr) {
+  for (i = 0; i < arr.length; i += 1) {
     const li = document.createElement('li');
     li.textContent = arr[i];
     ul.appendChild(li);
@@ -31,6 +33,7 @@ function addPhraseToDisplay(arr){
 
 addPhraseToDisplay(phraseArray);
 
+// Checks a letter to see if it matches a letter in the phrase
 function checkLetter(letter) {
   const letters = document.querySelectorAll('.letter');
   for (i = 0; i < letters.length; i += 1) {
@@ -45,11 +48,16 @@ function checkLetter(letter) {
   }
 }
 
+// Checks to see if the clicked letter matches a letter in the phrase
 qwerty.addEventListener('click', (e) => {
   const clickedLetter = e.target;
   if (clickedLetter.tagName === 'BUTTON') {
     clickedLetter.classList.add('chosen');
     clickedLetter.disabled = true;
     const letterFound = checkLetter(clickedLetter);
+    if (letterFound === null) {
+      missed += 1;
+    }
   }
+  console.log(missed);
 });
