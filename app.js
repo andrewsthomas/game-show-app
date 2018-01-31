@@ -3,16 +3,17 @@ const startButton = document.querySelector('.btn__reset');
 const phrase = document.getElementById('phrase');
 const qwerty = document.getElementById('qwerty');
 const ul = document.querySelector('#phrase ul');
-const phrases = ['hit the books', 'go cold turkey', 'rule of thumb', 'raining cats and dogs', 'cut to the chase'];
-const phraseArray = getRandomPhraseArray(phrases);
-const missed = 0;
+const phrases = ['Hit the books', 'Go cold turkey', 'Rule of thumb', 'Raining cats and dogs', 'Cut to the chase'];
+const phraseArray = getRandomPhraseAsArray(phrases);
+let missed = 0;
 
+// Hides the start screen overlay when button is clicked
 startButton.addEventListener('click', (e) => {
   overlay.style.display = 'none';
 });
 
 // Randomly chooses a phrase from the 'phrases' array
-function getRandomPhraseArray(arr) {
+function getRandomPhraseAsArray(arr) {
   const randomPhrase = Math.floor(Math.random() * arr.length);
   return arr[randomPhrase].split('');
 }
@@ -36,15 +37,31 @@ addPhraseToDisplay(phraseArray);
 // Checks a letter to see if it matches a letter in the phrase
 function checkLetter(letter) {
   const letters = document.querySelectorAll('.letter');
+  let match = null;
   for (i = 0; i < letters.length; i += 1) {
-    if (letters[i].innerHTML === letter.innerHTML) {
+    if (letters[i].textContent.toLowerCase() === letter.textContent.toLowerCase()) {
       letters[i].classList.add('show');
-      // const match = letters[i];
-      // return match;
+      match = letters[i];
     }
-    // else {
-    //   return null;
-    // }
+  }
+  console.log(match);
+  return match;
+}
+
+// Checks to see whether game has been won or lost
+function checkWin() {
+  const letters = document.querySelectorAll('.letter');
+  const show = document.querySelectorAll('.show');
+  const overlay = document.getElementById('overlay');
+  const title = overlay.querySelector('.title');
+  if (letters.length === show.length) {
+    title.innerText = 'Congratulations, you win!';
+    overlay.classList.add('win');
+    overlay.style.display = '';
+  } else if (missed >= 5) {
+    title.innerText = 'Sorry, better luck next time!';
+    overlay.classList.add('lose');
+    overlay.style.display = '';
   }
 }
 
@@ -56,8 +73,11 @@ qwerty.addEventListener('click', (e) => {
     clickedLetter.disabled = true;
     const letterFound = checkLetter(clickedLetter);
     if (letterFound === null) {
+      const tries = document.querySelectorAll('.tries')[0];
+      tries.parentNode.removeChild(tries);
       missed += 1;
     }
+    checkWin();
   }
   console.log(missed);
 });
