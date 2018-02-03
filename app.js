@@ -48,23 +48,6 @@ function checkLetter(letter) {
   return match;
 }
 
-// Checks to see whether game has been won or lost
-function checkWin() {
-  const letters = document.querySelectorAll('.letter');
-  const show = document.querySelectorAll('.show');
-  const overlay = document.getElementById('overlay');
-  const title = overlay.querySelector('.title');
-  if (letters.length === show.length) {
-    title.innerText = 'Congratulations, you win!';
-    overlay.classList.add('win');
-    overlay.style.display = '';
-  } else if (missed >= 5) {
-    title.innerText = 'Sorry, better luck next time!';
-    overlay.classList.add('lose');
-    overlay.style.display = '';
-  }
-}
-
 // Checks to see if the clicked letter matches a letter in the phrase
 qwerty.addEventListener('click', (e) => {
   const clickedLetter = e.target;
@@ -81,3 +64,40 @@ qwerty.addEventListener('click', (e) => {
   }
   console.log(missed);
 });
+
+// Checks to see whether game has been won or lost
+function checkWin() {
+  const letters = document.querySelectorAll('.letter');
+  const show = document.querySelectorAll('.show');
+  const title = overlay.querySelector('.title');
+  if (letters.length === show.length) {
+    title.textContent = 'Congratulations, you win!';
+    overlay.classList.add('win');
+    overlay.style.display = '';
+    addResetButton();
+  } else if (missed >= 5) {
+    title.textContent = 'Sorry, better luck next time!';
+    overlay.classList.add('lose');
+    overlay.style.display = '';
+    addResetButton();
+  }
+}
+
+// Adds Reset button to "success" and "failure" screens
+function addResetButton() {
+  const reset = document.createElement('button');
+  const buttons = qwerty.querySelectorAll('button');
+  startButton.style.display = 'none';
+  reset.textContent = 'Reset';
+  reset.classList.add('.btn_reset');
+  overlay.appendChild('reset');
+  reset.addEventListener('click', (e) => {
+    overlay.style.display = 'none';
+    for (i = 0; i < buttons.length; i += 1) {
+      buttons[i].classList.remove('chosen');
+      buttons[i].disabled = false;
+    }
+    addPhraseToDisplay(phraseArray);
+    missed = 0;
+  });
+}
