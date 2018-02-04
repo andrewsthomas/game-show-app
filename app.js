@@ -80,36 +80,50 @@ function checkWin() {
     title.textContent = 'Congratulations, you win!';
     overlay.classList.add('win');
     overlay.style.display = '';
-    addResetButton();
+    startButton.textContent = 'Reset';
   } else if (missed >= 5) {
     title.textContent = 'Sorry, better luck next time!';
     overlay.classList.add('lose');
     overlay.style.display = '';
-    addResetButton();
+    startButton.textContent = 'Reset';
   }
 }
 
 // Adds Reset button to "success" and "failure" screens
-function addResetButton() {
-  const reset = document.createElement('a');
-  const buttons = qwerty.querySelectorAll('button');
-  const tries = document.querySelectorAll('.tries');
-  startButton.style.display = 'none';
-  reset.textContent = 'Reset';
-  reset.classList.add('btn__reset');
-  console.log(reset);
-  overlay.appendChild('reset');
-  reset.addEventListener('click', (e) => {
+startButton.addEventListener('click', (e) => {
+  if (startButton.textContent === 'Reset') {
+
+    // set number of misses to zero
+    missed = 0;
+
+    // remove overlay
     overlay.style.display = 'none';
+    overlay.classList.remove('win', 'lose');
+
+    // recreate keyboard buttons
+    const buttons = qwerty.querySelectorAll('button');
     for (i = 0; i < buttons.length; i += 1) {
       buttons[i].classList.remove('chosen');
       buttons[i].disabled = false;
     }
+
+    // remove old phrase lis
+    const phraseListItems = ul.querySelectorAll('li');
+    for (i = 0; i < phraseListItems.length; i += 1) {
+      ul.removeChild(phraseListItems[i]);
+    }
+
+    // generate new random phrase
+    const newPhrase = getRandomPhraseAsArray(phrases);
+
+    // add new phrase to display
+    addPhraseToDisplay(newPhrase);
+
+    // reset hearts
+    const tries = document.querySelectorAll('.tries');
     for (i = 0; i < tries.length; i += 1) {
       const img = tries[i].getElementsByTagName('img')[0];
       img.src = 'images/liveHeart.png';
     }
-    addPhraseToDisplay(phraseArray);
-    missed = 0;
-  });
-}
+  }
+});
