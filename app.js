@@ -91,12 +91,12 @@ function checkWin() {
 
 // Adds Reset button to "success" and "failure" screens
 function addResetButton() {
-  const reset = document.createElement('button');
+  const reset = document.createElement('a');
   const buttons = qwerty.querySelectorAll('button');
   const tries = document.querySelectorAll('.tries');
   startButton.style.display = 'none';
   reset.textContent = 'Reset';
-  reset.classList.add('btn_reset');
+  reset.classList.add('btn__reset');
   console.log(reset);
   overlay.appendChild('reset');
   reset.addEventListener('click', (e) => {
