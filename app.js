@@ -55,13 +55,20 @@ qwerty.addEventListener('click', (e) => {
     clickedLetter.classList.add('chosen');
     clickedLetter.disabled = true;
     const letterFound = checkLetter(clickedLetter);
+
     if (letterFound === null) {
-      const tries = document.querySelectorAll('.tries')[0];
-      tries.parentNode.removeChild(tries);
       missed += 1;
     }
-    checkWin();
+
+    if (missed >= 1 && missed <= 5) {
+      const tries = document.querySelectorAll('.tries')[0];
+      const heart = tries[tries.length - missed];
+      heart.getElementsByTagName('img')[0].src = 'images/lostHeart.png';
+      // const tries = document.querySelectorAll('.tries')[0];
+      // tries.parentNode.removeChild(tries);
+    }
   }
+  checkWin();
   console.log(missed);
 });
 
@@ -87,6 +94,7 @@ function checkWin() {
 function addResetButton() {
   const reset = document.createElement('button');
   const buttons = qwerty.querySelectorAll('button');
+  const tries = document.querySelectorAll('.tries')[0];
   startButton.style.display = 'none';
   reset.textContent = 'Reset';
   reset.classList.add('.btn_reset');
@@ -96,6 +104,10 @@ function addResetButton() {
     for (i = 0; i < buttons.length; i += 1) {
       buttons[i].classList.remove('chosen');
       buttons[i].disabled = false;
+    }
+    for (i = 0; i < tries.length; i += 1) {
+      const img = tries[i].getElementsByTagName('img')[0];
+      img.src = 'images/lostHeart.png';
     }
     addPhraseToDisplay(phraseArray);
     missed = 0;
