@@ -51,6 +51,7 @@ function checkLetter(letter) {
 // Checks to see if the clicked letter matches a letter in the phrase
 qwerty.addEventListener('click', (e) => {
   const clickedLetter = e.target;
+
   if (clickedLetter.tagName === 'BUTTON') {
     clickedLetter.classList.add('chosen');
     clickedLetter.disabled = true;
@@ -61,11 +62,9 @@ qwerty.addEventListener('click', (e) => {
     }
 
     if (missed >= 1 && missed <= 5) {
-      const tries = document.querySelectorAll('.tries')[0];
+      const tries = document.querySelectorAll('.tries');
       const heart = tries[tries.length - missed];
       heart.getElementsByTagName('img')[0].src = 'images/lostHeart.png';
-      // const tries = document.querySelectorAll('.tries')[0];
-      // tries.parentNode.removeChild(tries);
     }
   }
   checkWin();
@@ -94,10 +93,11 @@ function checkWin() {
 function addResetButton() {
   const reset = document.createElement('button');
   const buttons = qwerty.querySelectorAll('button');
-  const tries = document.querySelectorAll('.tries')[0];
+  const tries = document.querySelectorAll('.tries');
   startButton.style.display = 'none';
   reset.textContent = 'Reset';
-  reset.classList.add('.btn_reset');
+  reset.classList.add('btn_reset');
+  console.log(reset);
   overlay.appendChild('reset');
   reset.addEventListener('click', (e) => {
     overlay.style.display = 'none';
@@ -107,7 +107,7 @@ function addResetButton() {
     }
     for (i = 0; i < tries.length; i += 1) {
       const img = tries[i].getElementsByTagName('img')[0];
-      img.src = 'images/lostHeart.png';
+      img.src = 'images/liveHeart.png';
     }
     addPhraseToDisplay(phraseArray);
     missed = 0;
