@@ -1,3 +1,4 @@
+// Global variables
 const overlay = document.getElementById('overlay');
 const startButton = document.querySelector('.btn__reset');
 const phrase = document.getElementById('phrase');
@@ -82,14 +83,14 @@ function checkWin() {
     overlay.style.display = '';
     startButton.textContent = 'Reset';
   } else if (missed >= 5) {
-    title.textContent = 'Sorry, better luck next time!';
+    title.textContent = 'Sorry, please try again!';
     overlay.classList.add('lose');
     overlay.style.display = '';
     startButton.textContent = 'Reset';
   }
 }
 
-// Adds Reset button to "success" and "failure" screens
+// Adds functioning reset button to "success" and "failure" screens
 startButton.addEventListener('click', (e) => {
   if (startButton.textContent === 'Reset') {
 
@@ -107,7 +108,7 @@ startButton.addEventListener('click', (e) => {
       buttons[i].disabled = false;
     }
 
-    // remove old phrase lis
+    // remove old phrase list items
     const phraseListItems = ul.querySelectorAll('li');
     for (i = 0; i < phraseListItems.length; i += 1) {
       ul.removeChild(phraseListItems[i]);
